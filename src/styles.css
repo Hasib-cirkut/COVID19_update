@@ -1,0 +1,27 @@
+.App {
+  font-family: Roboto, sans-serif;
+  text-align: center;
+  margin-left: 5vh;
+  margin-right: 5vh;
+  margin-top: 3vh;
+}
+
+.title,
+.logo {
+  margin: auto;
+  width: 50%;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+img {
+  height: 20vh;
+  margin-bottom: 3vh;
+}
