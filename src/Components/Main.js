@@ -119,7 +119,7 @@ export default function Main() {
             {selectPanel && <CardComp data={selectData} />}
 
 
-            <MapComp data={latlong}/>
+            <MapComp data={latlong} data2={selectData}/>
 
 
           

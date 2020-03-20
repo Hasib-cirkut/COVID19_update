@@ -1,10 +1,11 @@
 import React from 'react'
 
-import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
+import { Map, Marker, Popup, TileLayer, Circle } from 'react-leaflet'
 
 export default function MapComp(props){
 
     const {lat, lng} = props.data
+    const {confirm, death, recover} = props.data2
     
     let position = [lat, lng]
     
@@ -18,9 +19,11 @@ export default function MapComp(props){
             />
             <Marker position={position}>
             <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
+                {confirm} confirmed <br /> {death} people dead <br /> {recover} people recovered
             </Popup>
             </Marker>
+
+            <Circle center={position} radius={50} />
         </Map>
 
         </>
