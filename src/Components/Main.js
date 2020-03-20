@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button, CardTitle, CardText, Row, Col } from "reactstrap";
+import {Row, Col, Container } from "reactstrap";
 import AllCountry from "./AllCountry";
 import Select from "react-select";
 import CardComp from "./CardComp";
+import ChartComp from './ChartComp'
 
 export default function Main() {
   const [selectPanel, setSP] = useState(false);
@@ -69,23 +70,44 @@ export default function Main() {
         />
       </div>
 
-      <Row>
-        <div className="title">
-          <h1>WorldWide</h1>
-        </div>
-      </Row>
+      <Container>
 
-      <CardComp data={data} />
+        <Row>
+          <Col>
 
-      <div style={{ marginTop: "5vh", marginBottom: "5vh" }}>
-        <Select options={country} onChange={selectCountry} />
-      </div>
+          <ChartComp data={data}/>
+          
+          </Col>
+
+          <Col>
+
+            <Row>
+              <div className="title">
+                <h1 className="text-monospace">WORLDWIDE STATS</h1>
+              </div>
+            </Row>
+
+            <CardComp data={data} />
+
+            <div style={{ marginTop: "5vh", marginBottom: "5vh" }}>
+              <Select options={country} onChange={selectCountry} />
+            </div>
+            
+          </Col>
+        </Row>
+
+      </Container>
+
+
+
 
       {selectPanel && <CardComp data={selectData} />}
 
       <div />
 
-      <footer />
+      <div class="footer-copyright text-center py-3">Made with ❤️ by 
+        <a href="https://github.com/Hasib-cirkut"> Hasib</a>
+      </div>
     </div>
   );
 }
