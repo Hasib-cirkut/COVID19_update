@@ -25,3 +25,9 @@ img {
   height: 20vh;
   margin-bottom: 3vh;
 }
+
+.leaflet-container{
+  margin-top: 33vh;
+  width: 100%;
+  height: 400px;
+}

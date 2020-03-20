@@ -3,7 +3,8 @@ import {Row, Col, Container } from "reactstrap";
 import AllCountry from "./AllCountry";
 import Select from "react-select";
 import CardComp from "./CardComp";
-import ChartComp from './ChartComp'
+import ChartComp from './ChartComp';
+import MapComp from './MapComp'
 
 export default function Main() {
   const [selectPanel, setSP] = useState(false);
@@ -11,6 +12,11 @@ export default function Main() {
   const [data, setData] = useState({});
 
   const [selectData, setSData] = useState({});
+  const [latlong, setLatlong] = useState({
+    lat: 23.685,
+    lng: 90.3563
+  })
+
 
   useEffect(() => {
     async function fetchData() {
@@ -44,20 +50,29 @@ export default function Main() {
     //e.preventDefault()
 
     let reData = await fetch(
-      `https://covid19.mathdro.id/api/countries/${e.value}`
+      `https://covid19.mathdro.id/api/countries/${e.value}/confirmed`
     );
 
     reData = await reData.json();
 
+    reData = reData[0]
+
     //console.log(reData);
 
     setSData({
-      confirm: reData.confirmed.value,
-      death: reData.deaths.value,
-      recover: reData.recovered.value
+      confirm: reData.confirmed,
+      death: reData.deaths,
+      recover: reData.recovered
     });
 
     setSP(true);
+
+    setLatlong({
+      lat: reData.lat,
+      lng: reData.long
+    })
+
+    console.log(latlong)
   };
 
   return (
@@ -75,38 +90,50 @@ export default function Main() {
         <Row>
           <Col>
 
-          <ChartComp data={data}/>
+            <ChartComp data={data}/>
           
           </Col>
 
           <Col>
 
-            <Row>
+        
               <div className="title">
                 <h1 className="text-monospace">WORLDWIDE STATS</h1>
               </div>
-            </Row>
+      
 
-            <CardComp data={data} />
+              <CardComp data={data} />
 
-            <div style={{ marginTop: "5vh", marginBottom: "5vh" }}>
-              <Select options={country} onChange={selectCountry} />
-            </div>
+
+              <div style={{ marginTop: "5vh", marginBottom: "5vh" }}>
+                <Select options={country} onChange={selectCountry} />
+              </div>
             
           </Col>
         </Row>
 
+        
+
+    
+
+            {selectPanel && <CardComp data={selectData} />}
+
+
+            <MapComp data={latlong}/>
+
+
+          
+
+
       </Container>
 
 
-
-
-      {selectPanel && <CardComp data={selectData} />}
-
-      <div />
-
       <div class="footer-copyright text-center py-3">Made with ❤️ by 
-        <a href="https://github.com/Hasib-cirkut"> Hasib</a>
+        <a className="text-decoration-none" href="https://github.com/Hasib-cirkut"> Hasib</a>
+      </div>
+
+      <div class="footer-copyright text-center py-3">API credit:  
+        <a className="text-decoration-none" href="https://github.com/mathdroid/covid-19-api"> Mathdroid</a>
       </div>
     </div>
   );
